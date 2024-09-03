@@ -1,0 +1,7 @@
+library(ggplot2)
+library(dplyr)
+set.seed(1234)
+df<- read.csv("LaptopSalesJanuary2008.csv")
+df$Store.Postcode <- as.factor(df$Store.Postcode) 
+df %>% group_by(Store.Postcode) %>% summarise(Average.Retail.Price = mean(Retail.Price)) %>% mutate(order = Store.Postcode) %>% ggplot(aes(order,Average.Retail.Price))+geom_col()
+df %>% subset(Store.Postcode==c("N17 6QA", "W4 3PH")) %>% group_by(Store.Postcode) %>% ggplot(aes(y=Retail.Price,color=Store.Postcode))+geom_boxplot()
